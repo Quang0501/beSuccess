@@ -34,7 +34,7 @@ public class VnPayController {
 
         try {
             String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-                    + "/api/v1"; // Thiếu chỗ này nè
+                    + "/api/v1"; 
             String vnpayUrl = vnPayService.createOrder(orderRequest.getAmount(), orderRequest.getOrderInfo(), baseUrl);
             // Return the URL directly for frontend redirection
             return ResponseEntity.ok(vnpayUrl);
@@ -63,13 +63,13 @@ public class VnPayController {
             if (paymentStatus == 1) {
                 Long orderId = Long.parseLong(orderInfo); // Giả sử orderInfo chứa orderId
                 orderService.updateOrderStatus(orderId, OrderStatus.COMPLETE);
-                String redirectUrl = "http://localhost:4200/payment-success" + queryString;
+                String redirectUrl = "https://quangit.vercel.app/payment-success" + queryString;
                 response.sendRedirect(redirectUrl);
                 return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(redirectUrl)).build();
             } else {
                 Long orderId = Long.parseLong(orderInfo); // Giả sử orderInfo chứa orderId
                 orderService.updateOrderStatus(orderId, OrderStatus.CANCEL);
-                String redirectUrl = "http://localhost:4200/payment-failure" + queryString;
+                String redirectUrl = "https://quangit.vercel.app/payment-failure" + queryString;
                 response.sendRedirect(redirectUrl);
                 return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(redirectUrl)).build();
             }
