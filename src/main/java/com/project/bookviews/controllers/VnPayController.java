@@ -33,8 +33,7 @@ public class VnPayController {
         System.out.println("Received orderInfo: " + orderRequest.getOrderInfo());
 
         try {
-            String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-                    + "/api/v1";
+            String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/api/v1";
             String vnpayUrl = vnPayService.createOrder(orderRequest.getAmount(), orderRequest.getOrderInfo(), baseUrl);
             // Return the URL directly for frontend redirection
             return ResponseEntity.ok(vnpayUrl);
